@@ -60,10 +60,22 @@ const Upload = ({ userName, setGroups, groups }) => {
     </>
   )
 
-  const trackId = v4()
+  if (!track || !imageFile) {
+  setError(
+    <>
+      <CircleAlert color='#c72525ff' className='warn' />
+      Please fill in all the fields.
+    </>
+  );
+  setErrorList(true);
+  return;
+}
 
-  const trackExt = track.name.split('.').pop()
-  const coverExt = imageFile.name.split('.').pop()
+const trackExt = track.name?.split('.').pop();
+const coverExt = imageFile.name?.split('.').pop();
+
+
+  const trackId = v4()
 
   const trackNameInBucket = `track-${trackId}.${trackExt}`
   const coverNameInBucket = `cover-${trackId}.${coverExt}`
