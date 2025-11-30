@@ -14,7 +14,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
-// User schema
+
 const userSchema = new mongoose.Schema({
   name: { type: String, unique: true },
   email: { type: String, unique: true },
@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema, "accounts");
 
-// Metadata schema
+
 const songMetadataSchema = new mongoose.Schema({
   trackName: String,
   description: String,
@@ -33,10 +33,10 @@ const songMetadataSchema = new mongoose.Schema({
 
 const Metadata = mongoose.model("Metadata", songMetadataSchema, "metadata");
 
-// Routes
+
 app.get("/", (req, res) => res.send("Server running"));
 
-// User registration
+
 app.post("/accounts", async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -83,7 +83,7 @@ app.get("/tracks", async (req, res) => {
   }
 });
 
-// Start server
+
 app.listen(5000, () => {
   console.log("Server listening on port 5000");
 });
