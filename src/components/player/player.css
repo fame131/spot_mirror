@@ -1,0 +1,94 @@
+.player-cont {
+  width: 480px;
+  height: 82vh;
+  background-color: rgb(14, 13, 13);
+  position: fixed;
+  top: 95px;
+  left: 1010px;
+  border-radius: 20px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.player-cont::after {
+  content: "";
+  background: linear-gradient(to bottom, rgb(46, 44, 44), rgb(70, 4, 4));
+  position: fixed;
+  width: 480px;
+  height: 82vh;
+  border-radius: 20px;
+  top: 0;
+  z-index: -1;
+  filter: brightness(20%);
+  top: 95px;
+}
+
+.inner-player {
+  height: 100vh;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  font-family: arial;
+  padding: 20px;
+  width: 100%;
+  font-weight: 700;
+}
+
+.card-al {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  width: 98%;
+  border-radius: 5px;
+  position: relative;
+  right: 15px;
+}
+
+.name-albums {
+  margin-left: 20px;
+}
+
+.al-image {
+  width: 60px;
+  margin-left: 10px;
+}
+
+.card-al:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-al:hover .al-image {
+  filter: brightness(70%);
+}
+
+.icons {
+  position: absolute;
+  right: 10px;
+  width: 60px;
+  display: flex;
+  gap: 20px;
+  height: auto;
+}
+
+.play {
+  position: absolute;
+  left: 6px;
+  opacity: 0;
+  pointer-events: auto;
+  top: 7px;
+}
+
+.display {
+  opacity: 1;
+}
+
+.player {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  opacity: 1;
+  display: flex;
+  justify-content: start;
+  right: 30px;
+  align-items: start;
+}

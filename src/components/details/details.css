@@ -1,0 +1,75 @@
+.details-cont {
+    width: 200px;
+    height: 69.5vh;
+    background-color: rgb(14, 13, 13);
+    border-radius: 10px;
+    position: fixed;
+    right: 20px;
+    top: 70px;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none;
+    padding: 20px;
+}
+
+.post {
+    width: 215px;
+    border-radius: 5px;
+    height: 230px;
+    position: relative;
+    right: 7px;
+}
+
+.names {
+    font-family: 'arial';
+    font-weight: 800;
+    margin-left: 1px;
+    margin-top: 10px;
+}
+
+.name-art {
+    font-size: 20px;
+}
+
+.name-artist {
+    color: rgb(139, 139, 139);
+}
+
+.details {
+    font-family: Arial;
+    margin-top: 20px;
+}
+
+.genre,
+.insp,
+.release,
+.theme,
+.sound,
+.album {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.what {
+    font-weight: 700;
+}
+
+.no-song {
+    position: relative;
+    top: 45%;
+    margin-left: 10px;
+    font-family: arial;
+    font-weight: 700;
+    font-size: 15px;
+    z-index: 0;
+    margin-left: 35px;
+}
+@media(max-width:360px){
+    .details-cont{
+        display: none;
+    }   
+}

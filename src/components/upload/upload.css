@@ -1,0 +1,116 @@
+.own {
+  font-size: 30px;
+  font-weight: 800;
+  margin-top: 110px;
+  margin-left: 40px;
+}
+
+.uploads {
+  font-family: arial;
+}
+
+.preview-image {
+  width: 400px;
+  height: 400px;
+  background-color: rgb(19, 18, 18);
+  border-radius: 10px;
+  margin-top: 60px;
+  margin-left: 50px;
+}
+
+.upload-btn ,.track-btn{
+  height: 40px;
+  width: 200px;
+  background-color: rgb(15, 15, 15);
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  border: none;
+  position: relative;
+  top: 70px;
+  left: 60px;
+}
+
+.upload-stuffs {
+  display: flex;
+}
+
+.preview-all {
+  width: 300px;
+  height: 345px;
+  padding:30px;
+  background-color: rgb(19, 18, 18);
+  border-radius: 10px;
+  position: relative;
+  top: 57px;
+  left: 20px;
+  font-size: 17px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  gap:25px;
+}
+
+.upload-img {
+  width:400px;
+  height: 400px;
+  border-radius: 10px;
+}
+
+
+.all-inputs{
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+}
+
+.track-name-input , .description ,.upload-all{
+  height:25px;
+  width: 350px;
+  margin-top: 70px;
+  margin-left: 60px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background-color: rgb(17, 17, 17);
+}
+
+.description{
+  margin-top: 0px;
+}
+
+.upload-all{
+  height: 40px;
+  color: white;
+  margin-top: 20px;
+  width: 370px;
+}
+
+.upload-all:hover{
+  box-shadow: 0 0 10px rgb(19, 18, 18);
+}
+
+.error-upload,.fade-in{
+  position: fixed;
+  width:330px;
+  height:50px;
+  background-color: rgb(20, 19, 19);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgb(24, 23, 23);
+  bottom: -50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  left: 30px;
+  transition: 0.3s ease;
+}
+
+.fade-in{
+  bottom: 50px;
+}
+
+.warn{
+  margin-right: 20px;
+}

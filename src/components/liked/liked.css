@@ -1,0 +1,163 @@
+.favs-div {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    top: 50px;
+    left: 50px;
+}
+body{
+    overflow-y: auto;
+}
+.upper-sec {
+    width: 76%;
+    height: 400px;
+    background: linear-gradient(to bottom, rgb(111, 17, 199), rgb(18, 18, 189), black);
+    margin-left: 30px;
+    margin-top: 78px;
+    border-radius: 20px;
+    font-family: arial;
+}
+
+.play-list {
+    position: absolute;
+    left: 330px;
+    top: 160px;
+    font-weight: 700;
+}
+
+.liked-text {
+    position: absolute;
+    top: 200px;
+    left: 325px;
+    font-size: 60px;
+    font-weight: bolder;
+}
+
+.user-name {
+    position: absolute;
+    left: 330px;
+    top: 290px;
+    color: rgb(202, 185, 185);
+    font-weight: 600;
+}
+
+.upper-controls {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    justify-content: start;
+    gap: 30px;
+    position: absolute;
+    top: 400px;
+}
+
+.controls-sec {
+    display: flex;
+    justify-content: start;
+    width: 170px;
+    justify-content: space-between;
+}
+
+.button-sec {
+    margin-left: 70px;
+}
+
+.play-pause {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(85, 255, 161);
+    align-items: center;
+    border: none;
+}
+
+.list-sec {
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.liked-card {
+    display: flex;
+    align-items: center;
+    height: 65px;
+    width: 98%;
+    border-radius: 5px;
+}
+
+.liked-card:hover {
+    background-color: rgba(100, 95, 95, 0.3);
+}
+
+.liked-img {
+    width: 50px;
+    border-radius: 5px;
+}
+
+.lists {
+    width: 1050px;
+    margin-left: 5px;
+    font-family: arial;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    background-color: rgba(8, 8, 8, 0.1);
+    position: absolute;
+    top: 480px;
+    padding: 30px;
+    align-items: center;
+    gap:10px;
+}
+
+.names-liked {
+    display: flex;
+    flex: 2;
+    position: absolute;
+    gap: 100px;
+    left: 120px;
+    font-weight: 700;
+}
+
+.the-names {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 50px;
+    justify-content: center;
+}
+
+.liked-img {
+    margin-left: 10px;
+}
+
+.artist-liked {
+    color: rgb(202, 194, 194);
+    margin-top: 3px;
+    font-weight: 600;
+}
+
+.date {
+    position: absolute;
+    left: 350px;
+    width: 100px;
+    margin-top: 11px;
+}
+
+.duration {
+    position: absolute;
+    left: 620px;
+    margin-top: 11px;
+}
+
+.play-music-liked {
+    background-color: transparent;
+    border: none;
+}
+
+.ellipsis {
+    position: absolute;
+    right: 100px;
+}
