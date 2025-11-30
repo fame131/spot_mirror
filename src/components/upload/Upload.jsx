@@ -42,90 +42,86 @@ const Upload = ({ userName, setGroups, groups }) => {
 
 
   const handleUpload = async () => {
-
-    if (!track || !imageFile || trackName.trim() === '') {
-      setError(<><CircleAlert color='#c72525ff' className='warn' />
-        please fill in all the fields..
+  if (!track || !imageFile || trackName.trim() === '') {
+    setError(
+      <>
+        <CircleAlert color='#c72525ff' className='warn' />
+        Please fill in all the fields.
       </>
-      )
-      setErrorList(true)
-    }
-    else if (!track) {
-      setError(
-        <>
-          <CircleAlert color='#c72525ff' className='warn' />,
-          choose a track
-        </>
-      )
-    }
-    else if (!imageFile) {
-      setError(
-        <>
-          <CircleAlert color='#c72525ff' className='warn' />
-          choose an image
-        </>
-      )
-    }
-    else if (!trackName.trim()) {
-      setError(
-        <>
-          <CircleAlert color='#c72525ff' className='warn' />
-          'give a name for the track'
-        </>
-      )
-    }
-    else {
-      setError(
-        <>
-          <CheckCircle color='green' className='warn' />
-          Uploaded succesfully
-        </>
-      )
-
-      const res = axios.post('http://localhost:5000/upload-metadata', {
-        trackName,
-        description,
-        trackURL: trackPublicUrl,
-        coverURL: coverPublicUrl,
-      })
-
-    }
-
-    const trackId = v4()
-
-    const trackExt = track.name.split('.').pop()
-    const coverExt = imageFile.name.split('.').pop()
-
-    const trackNameInBucket = `track-${trackId}.${trackExt}`
-    const coverNameInBucket = `cover-${trackId}.${coverExt}`
-
-
-    const { error: trackError } = await supabase.storage
-      .from('spotmirror')
-      .upload(trackNameInBucket, track, {
-        contentType: track.type || 'audio/mpeg'
-      })
-
-    if (trackError) {
-      console.error(trackError)
-      alert("Error uploading track.")
-      return
-    }
-
-
-    const { error: imageError } = await supabase.storage
-      .from('spotmirror')
-      .upload(coverNameInBucket, imageFile, {
-        contentType: imageFile.type
-      })
-
-    if (imageError) {
-      console.error(imageError)
-      alert("Error uploading cover.")
-      return
-    }
-
+    )
+    setErrorList(true)
+    return
   }
+
+  setError(
+    <>
+      <CheckCircle color='green' className='warn' />
+      Uploaded successfully
+    </>
+  )
+
+  const trackId = v4()
+
+  const trackExt = track.name.split('.').pop()
+  const coverExt = imageFile.name.split('.').pop()
+
+  const trackNameInBucket = `track-${trackId}.${trackExt}`
+  const coverNameInBucket = `cover-${trackId}.${coverExt}`
+
+ 
+  const { error: trackError } = await supabase.storage
+    .from('spotmirror')
+    .upload(trackNameInBucket, track, {
+      contentType: track.type || 'audio/mpeg'
+    })
+
+  if (trackError) {
+    console.error(trackError)
+    alert("Error uploading track.")
+    return
+  }
+
+
+  const { error: imageError } = await supabase.storage
+    .from('spotmirror')
+    .upload(coverNameInBucket, imageFile, {
+      contentType: imageFile.type
+    })
+
+  if (imageError) {
+    console.error(imageError)
+    alert("Error uploading cover.")
+    return
+  }
+
+
+  const trackPublicUrl = supabase.storage
+    .from('spotmirror')
+    .getPublicUrl(trackNameInBucket).data.publicUrl
+
+  const coverPublicUrl = supabase.storage
+    .from('spotmirror')
+    .getPublicUrl(coverNameInBucket).data.publicUrl
+
+
+  try {
+    const res = await axios.post('http://localhost:5000/upload-metadata', {
+      trackName,
+      description,
+      trackURL: trackPublicUrl,
+      coverURL: coverPublicUrl,
+    })
+
+    console.log("Upload metadata response:", res.data)
+
+
+    setGroups([...groups, res.data.metadata])
+
+  } catch (err) {
+    console.error("Error uploading metadata", err)
+    alert("Error uploading metadata. Check console.")
+  }
+}
 
 
 

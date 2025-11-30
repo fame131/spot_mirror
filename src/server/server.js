@@ -1,14 +1,14 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection
+
 mongoose
   .connect("mongodb://localhost:27017/spotmirror")
   .then(() => console.log("MongoDB connected"))
@@ -36,7 +36,6 @@ const Metadata = mongoose.model("Metadata", songMetadataSchema, "metadata");
 
 app.get("/", (req, res) => res.send("Server running"));
 
-
 app.post("/accounts", async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -57,7 +56,6 @@ app.post("/accounts", async (req, res) => {
   }
 });
 
-// Upload song metadata
 app.post("/upload-metadata", async (req, res) => {
   try {
     const { trackName, description, trackURL, coverURL } = req.body;
@@ -72,7 +70,6 @@ app.post("/upload-metadata", async (req, res) => {
   }
 });
 
-// Get all tracks
 app.get("/tracks", async (req, res) => {
   try {
     const tracks = await Metadata.find();

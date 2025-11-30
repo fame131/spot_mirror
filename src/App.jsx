@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navigation from './components/navigation/Navigation'
 import Hero from './components/hero/Hero'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Route, Router, BrowserRouter, Routes } from 'react-router-dom'
 import Overview from './components/overView/Overview'
 import Liked from './components/liked/Liked'
 import Details from './components/details/Details'
 import Controls from './components/controls/Controls'
+import { useRef } from 'react'
 import User from './components/user/User'
 import Lists from './components/lists/Lists'
 import Playlist from './components/playlists/Playlist'
@@ -16,6 +17,7 @@ import Own from './components/own/Own'
 import { supabase } from './supabase'
 
 const App = () => {
+
   const [allStuffs, setAllStuffs] = useState({})
   const [playingIndex, setPlayingIndex] = useState(null)
   const playRef = useRef([])
@@ -29,6 +31,7 @@ const App = () => {
 
   const handleClick = (index) => {
     const audio = playRef.current[index]
+
     if (!audio) return
 
     if (playingIndex === index) {
@@ -51,13 +54,16 @@ const App = () => {
 
   useEffect(() => {
     if (allStuffs.name) {
-      localStorage.setItem('username', allStuffs.name)
+      const userName = localStorage.setItem('username', allStuffs.name)
     }
 
     if (allStuffs.email) {
-      localStorage.setItem('email', allStuffs.email)
+      const email = localStorage.setItem('email', allStuffs.email)
     }
+
   }, [allStuffs.name, allStuffs.email])
+
+
 
   const savedUserName = localStorage.getItem('username')
   const savedEmail = localStorage.getItem('email')
@@ -96,7 +102,7 @@ const App = () => {
 
   const fetchMetadata = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/tracks`)
+      const response = await fetch('http://localhost:5000/tracks')
       const data = await response.json()
       setGroups(data)
     }
@@ -211,6 +217,7 @@ const App = () => {
           } />
         </Routes>
       </BrowserRouter>
+
     </div>
   )
 }

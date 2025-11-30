@@ -30,9 +30,7 @@
   top:100px;
   left: 30px;
 }
-
-
 .track-name-own{
   position: absolute;
-  z-index: 10;
+  margin-top: 100px;
 }
