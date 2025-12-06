@@ -3,7 +3,7 @@ import "./navigation.css"
 import { Download, Bell, Ellipsis, Home, CirclePlus, CircleCheck } from "lucide-react"
 import songs from "../../../public/songs/datas/songs"
 import { Play, Pause } from "lucide-react"
-import { User } from "lucide-react"
+import { User , Menu} from "lucide-react"
 
 const Navigation = ({ handleClick, playingIndex, handlePreview, setLikedMusic = () => { }, first , userName , setFirst}) => {
 
@@ -82,8 +82,8 @@ const Navigation = ({ handleClick, playingIndex, handlePreview, setLikedMusic = 
       <nav className="nav-bar">
 
         <div className="name">
-          <div className="drop-down"><Ellipsis size={27} /></div>
-          <div className="the-name">spotmirror</div></div>
+          <div className="drop-down"><Menu size={27} /></div>
+          <div className="the-name"><span className="gradient">Spot</span>Mirror</div></div>
         <div className="search-sec">
           <div className="home"><Home size={30} /></div>
           <input ref={inputRef} type="text" className="search" placeholder="Search for musics.." onChange={(e) => setSearch(e.target.value)} onClick={() => setDisplay(true)} />

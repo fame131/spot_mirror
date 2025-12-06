@@ -10,15 +10,18 @@ import { Link } from "react-router-dom"
 import Controls from "../controls/Controls"
 import { useEffect } from "react"
 import album from "../../../public/songs/datas/album"
-import { ArrowBigRight,  ArrowBigLeft } from "lucide-react"
+import { ArrowBigRight, ArrowBigLeft } from "lucide-react"
 
 
 
-const Hero = ({ setLists, displayState, setDisplayState, theData, setTheData, setLikedMusic, handleClick, playRef, playingIndex, first, userName, setFirst }) => {
+const Hero = ({ groups, setLists, displayState, setDisplayState, theData, setTheData, setLikedMusic, handleClick, playRef, playingIndex, first, userName, setFirst }) => {
 
   const posterRef = useRef([])
+  const uploaded = useRef([])
+  const displayRef = useRef([])
   const buttonRef = useRef([])
-  const [leftArrow , setLeftArrow] = useState(false)
+  const [leftArrow, setLeftArrow] = useState(false)
+  const [prevPlay, setPrevPlay] = useState(null)
 
   const [pixels, setPixels] = useState(0)
 
@@ -66,6 +69,37 @@ const Hero = ({ setLists, displayState, setDisplayState, theData, setTheData, se
     setPixels(prev => prev - 1000)
   }
 
+  const handlePlay = (index) => {
+    const song = uploaded.current[index]
+
+    if (!uploaded) return
+
+    if (prevPlay === index) {
+      song.pause()
+      setPrevPlay(null)
+      return
+    }
+
+    if (prevPlay !== null) {
+      uploaded.current[prevPlay].pause()
+      uploaded.current[prevPlay].currentTime = 0
+    }
+
+    song.play()
+    setPrevPlay(index)
+  }
+
+  const handleOver = (index) => {
+    const displayBtn = displayRef.current[index]
+
+    displayBtn.classList.add('btn-display')
+  }
+
+  const handleLeave = (index) => {
+    const displayBtn = displayRef.current[index]
+
+    displayBtn.classList.remove('btn-display')
+  }
 
   return (
     <div>
@@ -75,7 +109,7 @@ const Hero = ({ setLists, displayState, setDisplayState, theData, setTheData, se
         <Playlist />
         <div className="hero-cont">
           <div className="suggested">Suggested for {displayState}</div>
-          {songs.slice(0, 10).map((song, index) => (
+          {songs.slice(0, 12).map((song, index) => (
             <Link to={'/song'} className="song-cont" key={index}
               onClick={() =>
                 handleData({
@@ -141,14 +175,12 @@ const Hero = ({ setLists, displayState, setDisplayState, theData, setTheData, se
             </Link>
           ))}
         </div>
-
-        <Details song={previewSong} />
         <Controls />
       </div>
 
       <h1 className="album-head">Albums</h1>
       <div className="arrow-btn" onClick={() => handleMove()}><ArrowBigRight color="white" fill="white" /></div>
-      <div className={pixels == 0? 'arrow-left' : 'displayed'}onClick={() => handleMoveLeft()}><ArrowBigLeft color="white" fill="white" /></div>
+      <div className={pixels == 0 ? 'arrow-left' : 'displayed'} onClick={() => handleMoveLeft()}><ArrowBigLeft color="white" fill="white" /></div>
       <div className="albums">
         <div className="album-sub" style={{ transform: `translateX(-${pixels}px)`, transition: '0.3s ease' }}>
           {
@@ -166,6 +198,45 @@ const Hero = ({ setLists, displayState, setDisplayState, theData, setTheData, se
           }
 
         </div>
+      </div>
+
+      <div className="recently">Recently uploaded</div>
+
+      <div className="uploaded">
+        {
+          groups.map((group, index) => (
+            <div>
+              <div className="song-cont-2"
+                onMouseEnter={() => handleOver(index)}
+                onMouseLeave={() => handleLeave(index)}
+              >
+                <img src={group.coverURL} className="poster-2" />
+                <audio src={group.trackURL} ref={el => { uploaded.current[index] = el }}></audio>
+                <div className="btn-play"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handlePlay(index)
+                  }}>
+                  {prevPlay == index ?
+                    (
+                      <Pause className="play-display" color="white" fill='white' ref={el => displayRef.current[index] = el} />
+                    ) : (
+                      <Play className="play-display" color="white" fill='white' ref={el => displayRef.current[index] = el} />
+                    )
+
+                  }
+                </div>
+
+                <div className="music-track-name">
+                  {group.trackName}
+                </div>
+                <div className="artist-track">
+                  {group.artist}
+                </div>
+              </div>
+            </div>
+          ))
+        }
       </div>
 
     </div>

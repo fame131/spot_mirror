@@ -7,8 +7,8 @@ const Playlist = () => {
   return (
     <div>
       <div className="playlists-cont">
+        <Link to={'/liked'} className="favs"><Heart size={20} color='black' fill='black' /></Link>
         <div className="plus-icon">+</div>
-        <Link to={'/liked'} className="favs"><Heart size={30} color='white' /></Link>
         <div className="playlists"></div>
       </div>
     </div>

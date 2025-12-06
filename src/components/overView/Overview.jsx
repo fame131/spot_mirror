@@ -164,7 +164,6 @@ const handleAdd = (song) => {
 
       </div>
 
-      <Details2 dets={dets} />
       <Controls />
 
     </div>

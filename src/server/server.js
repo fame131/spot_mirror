@@ -29,6 +29,7 @@ const songMetadataSchema = new mongoose.Schema({
   description: String,
   trackURL: String,
   coverURL: String,
+  artist: String
 });
 
 const Metadata = mongoose.model("Metadata", songMetadataSchema, "metadata");
@@ -58,9 +59,9 @@ app.post("/accounts", async (req, res) => {
 
 app.post("/upload-metadata", async (req, res) => {
   try {
-    const { trackName, description, trackURL, coverURL } = req.body;
+    const { trackName, description, trackURL, coverURL ,artist} = req.body;
 
-    const newSong = await Metadata.create({ trackName, description, trackURL, coverURL });
+    const newSong = await Metadata.create({ trackName, description, trackURL, coverURL ,artist});
     console.log("Uploaded song:", newSong);
 
     res.json({ message: "Metadata uploaded successfully", metadata: newSong });

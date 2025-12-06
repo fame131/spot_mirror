@@ -42,100 +42,99 @@ const Upload = ({ userName, setGroups, groups }) => {
 
 
   const handleUpload = async () => {
-  if (!track || !imageFile || trackName.trim() === '') {
+    if (!track || !imageFile || trackName.trim() === '') {
+      setError(
+        <>
+          <CircleAlert color='#c72525ff' className='warn' />
+          Please fill in all the fields.
+        </>
+      )
+      setErrorList(true)
+      return
+    }
+
     setError(
       <>
-        <CircleAlert color='#c72525ff' className='warn' />
-        Please fill in all the fields.
+        <CheckCircle color='green' className='warn' />
+        Uploaded successfully
       </>
     )
-    setErrorList(true)
-    return
+
+    if (!track || !imageFile) {
+      setError(
+        <>
+          <CircleAlert color='#c72525ff' className='warn' />
+          Please fill in all the fields.
+        </>
+      );
+      setErrorList(true);
+      return;
+    }
+
+    const trackExt = track.name?.split('.').pop();
+    const coverExt = imageFile.name?.split('.').pop();
+
+
+    const trackId = v4()
+
+    const trackNameInBucket = `track-${trackId}.${trackExt}`
+    const coverNameInBucket = `cover-${trackId}.${coverExt}`
+
+
+    const { error: trackError } = await supabase.storage
+      .from('spotmirror')
+      .upload(trackNameInBucket, track, {
+        contentType: track.type || 'audio/mpeg'
+      })
+
+    if (trackError) {
+      console.error(trackError)
+      alert("server is'nt running")
+      return
+    }
+
+
+    const { error: imageError } = await supabase.storage
+      .from('spotmirror')
+      .upload(coverNameInBucket, imageFile, {
+        contentType: imageFile.type
+      })
+
+    if (imageError) {
+      console.error(imageError)
+      alert("Error uploading cover.")
+      return
+    }
+
+
+    const trackPublicUrl = supabase.storage
+      .from('spotmirror')
+      .getPublicUrl(trackNameInBucket).data.publicUrl
+
+    const coverPublicUrl = supabase.storage
+      .from('spotmirror')
+      .getPublicUrl(coverNameInBucket).data.publicUrl
+
+
+    try {
+      const res = await axios.post('http://localhost:5000/upload-metadata', {
+        trackName,
+        description,
+        trackURL: trackPublicUrl,
+        coverURL: coverPublicUrl,
+        artist: userName
+      })
+
+      console.log("server is'nt running")
+
+
+      setGroups([...groups, res.data.metadata])
+
+    } catch (err) {
+      console.error("server is'nt running")
+      alert("server is'nt running")
+    }
   }
-
-  setError(
-    <>
-      <CheckCircle color='green' className='warn' />
-      Uploaded successfully
-    </>
-  )
-
-  if (!track || !imageFile) {
-  setError(
-    <>
-      <CircleAlert color='#c72525ff' className='warn' />
-      Please fill in all the fields.
-    </>
-  );
-  setErrorList(true);
-  return;
-}
-
-const trackExt = track.name?.split('.').pop();
-const coverExt = imageFile.name?.split('.').pop();
-
-
-  const trackId = v4()
-
-  const trackNameInBucket = `track-${trackId}.${trackExt}`
-  const coverNameInBucket = `cover-${trackId}.${coverExt}`
-
- 
-  const { error: trackError } = await supabase.storage
-    .from('spotmirror')
-    .upload(trackNameInBucket, track, {
-      contentType: track.type || 'audio/mpeg'
-    })
-
-  if (trackError) {
-    console.error(trackError)
-    alert("Error uploading track.")
-    return
-  }
-
-
-  const { error: imageError } = await supabase.storage
-    .from('spotmirror')
-    .upload(coverNameInBucket, imageFile, {
-      contentType: imageFile.type
-    })
-
-  if (imageError) {
-    console.error(imageError)
-    alert("Error uploading cover.")
-    return
-  }
-
-
-  const trackPublicUrl = supabase.storage
-    .from('spotmirror')
-    .getPublicUrl(trackNameInBucket).data.publicUrl
-
-  const coverPublicUrl = supabase.storage
-    .from('spotmirror')
-    .getPublicUrl(coverNameInBucket).data.publicUrl
-
-
-  try {
-    const res = await axios.post('http://localhost:5000/upload-metadata', {
-      trackName,
-      description,
-      trackURL: trackPublicUrl,
-      coverURL: coverPublicUrl,
-    })
-
-    console.log("Upload metadata response:", res.data)
-
-
-    setGroups([...groups, res.data.metadata])
-
-  } catch (err) {
-    console.error("Error uploading metadata", err)
-    alert("Error uploading metadata. Check console.")
-  }
-}
-
-
 
 
   return (

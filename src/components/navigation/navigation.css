@@ -5,7 +5,7 @@
     align-items: center;
     background-color: black;
     position: fixed;
-    z-index: 1;
+    z-index: 30;
     padding: 3px;
     top: 0;
 }
@@ -73,21 +73,20 @@ html {
 }
 
 .user{
-    font-family: 'arial';
+    font-family: arial;
     font-weight: 800;
     font-size: 20px;
 }
 
 @font-face {
-    font-family: 'saira';
-    src: url('/fonts/saira.ttf');
+    font-family: 'head';
+    src: url('/fonts/samsung.otf');
 }
 
 .the-name {
-    font-size: 23px;
-    font-family: 'saira';
+    font-size: 25px;
+    font-family: 'head';
     margin-right: 20px;
-    text-transform: uppercase;
 }
 
 .drop-down {
@@ -206,5 +205,12 @@ html {
     left: 380px;
     background-color: transparent;
     border: none;
+}
+
+.gradient{
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(to right , rgb(23, 216, 23) , green);
+    -webkit-background-clip: text;
+    font-weight: 700;
 }
 

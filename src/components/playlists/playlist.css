@@ -1,9 +1,8 @@
 .playlists-cont{
     height:76vh;
-    background-color:  rgb(14, 13, 13);
     width:70px;
     border-radius: 10px;
-    margin-left: 25px;
+    margin-left: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,11 +28,12 @@
 }
 
 .favs,.favs-div{
-    width:50px;
-    height:50px;
-    background: linear-gradient(40deg , blue , blueviolet);
-    border-radius: 10px;
+    width:40px;
+    height:40px;
+    background: rgb(53, 221, 53);
+    border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
 }

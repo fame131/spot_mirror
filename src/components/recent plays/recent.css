@@ -1,68 +1,90 @@
-.recents {
-    position: absolute;
-    top: 100px;
-    border-radius: 10px;
-    width: 75%;
-    height: 200px;
-    filter: brightness(60%);
-    margin-left: 8px;
-}
-
 .recent-img {
-    width: 50px;
-    border-radius: 5px;
-    margin-left: 3px;
+  width: 165px;
+  border-radius: 100%;
+  margin-left: 3px;
+  height: 165px;
+  object-fit: cover;
+}
+.recents {
+  background: linear-gradient(to bottom, rgba(7, 131, 63, 0.6), black 100%);
+  position: absolute;
+  top: 79px;
+  left: 90px;
+  border-radius: 10px;
+  width: 92%;
+  height: 400px;
+  overflow: hidden;
 }
 
 .recent-songs {
-    position: absolute;
-    display: grid;
-    grid-template-columns: 210px 210px 210px 210px;
-    grid-template-rows: 56px 56px;
-    width: 70%;
-    z-index: 1;
-    left: 155px;
-    gap: 20px;
-    top: 120px;
+  position: relative;
+  display: flex;
+  width: 70%;
+  z-index: 1;
+  left: 25px;
+  gap: 30px;
+  top: 70px;
 }
 
 .recent-card {
-    background-color: rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    display: flex;
-    border-radius: 5px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  border-radius: 5px;
 }
 
-.recent-name {
-    font-family: arial;
-    font-size: 14px;
-    font-weight: 700;
-    margin-left: 15px;
-    color: rgba(255, 255, 255, 0.9);
+.profiles {
+  display: flex;
+  margin-left: 6px;
 }
 
-.player-btn {
-    border-radius: 100%;
-    width: 35px;
-    height: 35px;
-    background-color: rgb(85, 255, 161);
-    border: none;
-    position: absolute;
-    margin-left: 165px;
-    transform: translateY(40px);
-    box-shadow: 1px 1px 10px rgb(117, 98, 98);
-    opacity: 0;
+.follow-button {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgb(27, 211, 110);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: 1000;
+  font-size: 20px;
+  margin-left: 130px;
+  margin-top: 120px;
+  font-family: arial;
+  transition: 0.1s ease;
+  cursor: pointer;
 }
 
-.hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transition: 0.3s ease;
+.head-artists {
+  font-family: arial;
+  font-weight: 700;
+  font-size: 30px;
+  margin-top: 20px;
+  margin-left: 30px;
+  position: absolute;
+}
+.artist-name-rec {
+  position: absolute;
+  font-family: arial;
+  font-weight: 700;
+  margin-top: 180px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -17px;
 }
 
-.hover-btn {
-    transform: translateY(0);
-    opacity: 1;
-    transition: 0.2s ease;
+.width-inc {
+  width: 100px;
+  border-radius: 10px;
+  margin-left: 100px;
 }
 
+.follow {
+  font-family: arial;
+  font-size: 14px;
+  transition: 0.1s ease;
+}

@@ -13,8 +13,8 @@ import Playlist from './components/playlists/Playlist'
 import Player from './components/player/Player'
 import Manage from './components/manage/Manage'
 import Upload from './components/upload/Upload'
-import Own from './components/own/Own'
 import { supabase } from './supabase'
+import Own from './components/own/Own'
 
 const App = () => {
 
@@ -69,38 +69,6 @@ const App = () => {
   const savedEmail = localStorage.getItem('email')
 
   const fetchFiles = async () => {
-    const { data: files, error } = await supabase.storage
-      .from('spotmirror')
-      .list('', { limit: 100, sortBy: { column: 'name', order: 'asc' } })
-
-    if (error) {
-      console.error(error)
-      return
-    }
-
-    const grouped = {}
-
-    files.forEach((file) => {
-      const match = file.name.match(/-([A-Za-z0-9-]+)\./)
-
-      if (!match) return
-
-      const id = match[1]
-
-      if (!grouped[id])
-        grouped[id] = { id, trackUrl: null, coverUrl: null }
-
-      const publicUrl =
-        supabase.storage.from('spotmirror').getPublicUrl(file.name).data.publicUrl
-
-      if (file.name.startsWith('track-')) grouped[id].trackUrl = publicUrl
-      if (file.name.startsWith('cover-')) grouped[id].coverUrl = publicUrl
-    })
-
-    setGroups(Object.values(grouped))
-  }
-
-  const fetchMetadata = async () => {
     try {
       const response = await fetch('http://localhost:5000/tracks')
       const data = await response.json()
@@ -113,7 +81,6 @@ const App = () => {
 
   useEffect(() => {
     fetchFiles()
-    fetchMetadata()
   }, [])
 
   return (
@@ -142,6 +109,7 @@ const App = () => {
                 handleClick={handleClick}
                 playRef={playRef}
                 playingIndex={playingIndex}
+                groups={groups}
               />
             }
           />
@@ -171,7 +139,6 @@ const App = () => {
                   user={allStuffs}
                   userName={savedUserName}
                 />
-                <Details />
                 <Controls />
               </>
             }
@@ -209,10 +176,9 @@ const App = () => {
               <Upload groups={groups} setGroups={setGroups} userName={savedUserName} />
             </>
           } />
-
           <Route path='/tracks' element={
             <>
-              <Own groups={groups} />
+              <Own groups={groups} setGroups={setGroups} userName={savedUserName} />
             </>
           } />
         </Routes>
